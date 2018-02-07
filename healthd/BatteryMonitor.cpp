@@ -296,10 +296,8 @@ bool BatteryMonitor::update(void) {
                             path.clear();
                             path.appendFormat("%s/%s/voltage_max", POWER_SUPPLY_SYSFS_PATH, name);
                             int ChargingVoltage = (access(path.string(), R_OK) == 0) ? getIntField(path) : DEFAULT_VBUS_VOLTAGE;
-                            // there are devices that have the file but with a value of 0
-                            if (ChargingVoltage == 0) {
-                                ChargingVoltage = DEFAULT_VBUS_VOLTAGE;
-                            }
+
+#endif
                             double power = ((double)ChargingCurrent / MILLION) * ((double)ChargingVoltage / MILLION);
                             if (MaxPower < power) {
                                 props.maxChargingCurrent = ChargingCurrent;
